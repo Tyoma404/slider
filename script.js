@@ -43,3 +43,6 @@ for(var i=0; i<buttons.length; i++){
     console.log("Курсор наведён на " + event.target.dataset.name + " картинку");
   })
 }
+buttons[i].addEventListener("mouseenter", function{
+  console.log("Курсор наведён на " + event.target.dataset.name + " кнопку");
+})
