@@ -2,6 +2,7 @@
   width: 900px;
   margin: 0 auto;
   text-align: center;
+  opacity: 0;
   }
 
 #gallery .photos {
