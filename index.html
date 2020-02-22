@@ -7,8 +7,29 @@
 
 </head>
 <body>
-  kjhjkh
-<!-- partial:index.partial.html -->
+<div id="firstDiv"><p>Выберите</p> 
+<input type="button" value="Зарегистрироваться" id="sign_choice">
+<input type="button" value="Авторизироваться" id="login_choice">
+</div>
+
+<div id="signup">
+  <p>Введите адресс эл.почты и пароль</p>
+  <form method="post" action="/login/">
+    <table>
+        <tr>
+            <td><label for="signupField">Электронная почта</label></td>
+            <td><input id="signupField" type="text" name="signup"></td>
+        </tr>
+        <tr>
+            <td><label for="passwordSignField">Пароль</label></td>
+            <td><input id="passwordSignField" type="text" name="passwordSign"></td>
+        </tr>
+    </table>
+</form>
+<br>
+<input type="button" value="Зарегистрироваться" id="sign_btn">
+</div> 
+
 <div id="login">
   <p>Введите логин и пароль:</p>
   <form method="post" action="/login/">

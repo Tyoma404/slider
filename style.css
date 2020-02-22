@@ -28,3 +28,11 @@
 #gallery .photos img.active {
   opacity: 1;   /*Показывает активную картинку. Класс active текущей картинке под тэгом img присваивает JS при нажатии кнопок Назад-Вперед */ 
 }
+
+#signup{
+  opacity: 0;
+}
+
+#login{
+  opacity: 0;
+}

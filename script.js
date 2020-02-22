@@ -5,8 +5,15 @@ var images = document.querySelectorAll('#gallery .photos img'); /*отбирае
 var buttons = document.querySelectorAll("#gallery .buttons");
 var q = 0; /* номер картинки в массиве */
 var imageLength = images.length;
+var signChoice = document.querySelector('#sign_choice');
+var loginChoice = document.querySelector('#login_choice');
+var loginView = document.querySelector('#login');
+var signupView = document.querySelector('#signup');
 var log_btn = document.querySelector('#log_btn');
+var sign_btn = document.querySelector('#sign_btn');
 var login = document.querySelector('#loginField');
+var email = document.querySelector('#signupField');
+var pass = document.querySelector('#passwordSignField');
 var password = document.querySelector('#passwordField');
 var loginSost = document.querySelector('#loginSost');
 var gallery = document.querySelector('#gallery');
@@ -55,30 +62,55 @@ log_btn.addEventListener("click", async () => {
 
   switch(login.value){
     case "admin":
-       response = await fetch(url + "admin.json");
+       response = await fetch(url + "admin.json",);
        commits = await response.json(); 
         if(password.value == 123){
           gallery.style.opacity = 1;
+          loginSost.innerHTML = "";
+          loginView.style.opacity = 0;
         }
-        else  loginSost.innerHTML = "Введён неверно пароль!";
+        else  loginSost.innerHTML = "Неверно введён логин или пароль!";
         break;
 
     case "user":
        response = await fetch(url + "user.json");
        commits = await response.json(); 
        if(password.value === "qwert"){
-        console.log("А user'ам только строка в консоль")}
-        else  loginSost.innerHTML = "Введён неверно пароль!";
+        console.log("А user'ам только строка в консоль))");
+        loginSost.innerHTML = "";
+        loginView.style.opacity = 0;
+      }
+        else  loginSost.innerHTML = "Неверно введён логин или пароль!";
       
     break;
 
-   default: loginSost.innerHTML = "Введён неверно логин!";
+   default: loginSost.innerHTML = "Неверно введён логин или пароль!";
   }
+});
 
- 
+sign_btn.addEventListener("click", async()=> {
+var url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyARBkhuz8A8LZgPc2WrhMkkuZkQ-yvvqLQ';
+var data = {"email": email.value, "password": pass.value, "returnSecureToken": true};
+response = await fetch(url, {
+  method: 'POST',
+  body: JSON.stringify(data)
+});
+commits = await response.json(); 
+console.log(commits);
 
-})
+
+});
+
+signChoice.addEventListener('click', ()=>{
+   signupView.style.opacity = 1;
+   firstDiv.style.opacity = 0;
+});
+
+loginChoice.addEventListener('click', ()=>{
+  loginView.style.opacity = 1;
+  firstDiv.style.opacity = 0; 
+});
 
 
-
+//AIzaSyARBkhuz8A8LZgPc2WrhMkkuZkQ-yvvqLQ
  
