@@ -8,12 +8,13 @@
 </head>
 <body>
 <div id="firstDiv"><p>Выберите</p> 
-<input type="button" value="Зарегистрироваться" id="sign_choice">
-<input type="button" value="Авторизироваться" id="login_choice">
+<input type="button" value="Зарегистрироваться" id="sign_choice">   <!-- Выбор режима регистрации нового пользователя-->
+<input type="button" value="Тестовый аккаунт" id="login_choice">   <!-- Выбор режима просмотра примера-->
+<input type="button" value="Авторизироваться" id="signIn_choice">  <!-- Выьор режима вторизации-->
 </div>
 
 <div id="signup">
-  <p>Введите адресс эл.почты и пароль</p>
+  <p>Введите адресс эл.почты и дважды желаемый пароль</p>
   <form method="post" action="/login/">
     <table>
         <tr>
@@ -24,14 +25,36 @@
             <td><label for="passwordSignField">Пароль</label></td>
             <td><input id="passwordSignField" type="text" name="passwordSign"></td>
         </tr>
+        <tr>
+          <td><label for="passwordSignField1">Повтор пароля</label></td>
+          <td><input id="passwordSignField1" type="text" name="passwordSign1"></td>
+      </tr>
     </table>
 </form>
 <br>
 <input type="button" value="Зарегистрироваться" id="sign_btn">
 </div> 
 
+<div id="signIn">
+  <p>Введите ваш логин и пароль</p>
+  <form method="post" action="/login/">
+    <table>
+        <tr>
+            <td><label for="signInField">Логин</label></td>
+            <td><input id="signInField" type="text" name="signIn"></td>
+        </tr>
+        <tr>
+            <td><label for="passwordSignInField">Пароль</label></td>
+            <td><input id="passwordSignInField" type="text" name="passwordSignIn"></td>
+        </tr>
+    </table>
+</form>
+<br>
+<input type="button" value="Авторизироваться" id="signIn_btn">
+</div> 
+
 <div id="login">
-  <p>Введите логин и пароль:</p>
+  <p>Введите тестовый логин и пароль:</p>
   <form method="post" action="/login/">
     <table>
         <tr>
@@ -40,12 +63,12 @@
         </tr>
         <tr>
             <td><label for="passwordField">Пароль</label></td>
-            <td><input id="passwordField" type="text" name="password"></td>
+            <td><input id="passwordField" type="password" name="password"></td>
         </tr>
     </table>
 </form>
 <br>
-<input type="button" value="Авторизироваться" id="log_btn">
+<input type="button" value="Показать пример" id="log_btn">
 <br>
 <div id="loginSost"></div>
 </div> 
@@ -79,7 +102,7 @@
      <input type="button" data-name="9" value="рис 10" class="buttons">
      <input type="button" value="Вперед" class="next">
 </div>
-
+<button id="logOut_btn">Выход</button>
 </div>
 
 

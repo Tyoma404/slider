@@ -33,6 +33,10 @@
   opacity: 0;
 }
 
+#signIn{
+  opacity: 0;
+}
+
 #login{
   opacity: 0;
 }

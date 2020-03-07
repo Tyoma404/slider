@@ -1,23 +1,37 @@
-var btn_prev = document.querySelector('#gallery .buttonsForSlider .prev');  /* отбирает всегда самый первый элемент, удовлетворяющий css-селектору */
-var btn_next = document.querySelector('#gallery .buttonsForSlider .next');
-var firstPicture = document.querySelector("#gallery .photos img:first-child");
+function $(selector) {
+ return document.querySelector(selector)
+}
+
+
+var btn_prev = $('#gallery .buttonsForSlider .prev');  /* отбирает всегда самый первый элемент, удовлетворяющий css-селектору */
+var btn_next = $('#gallery .buttonsForSlider .next');
+var firstPicture = $("#gallery .photos img:first-child");
 var images = document.querySelectorAll('#gallery .photos img'); /*отбирает все картинки в массив images */
-var buttons = document.querySelectorAll("#gallery .buttons");
+var buttons = document.querySelectorAll("#gallery .buttons");   //кнопки для галереи
 var q = 0; /* номер картинки в массиве */
-var imageLength = images.length;
-var signChoice = document.querySelector('#sign_choice');  //при выборе регистрации
-var loginChoice = document.querySelector('#login_choice');  //при выборе авторизации
-var loginView = document.querySelector('#login');   //отображение меню авторизации
-var signupView = document.querySelector('#signup');   //отображение меню регистрации
-var log_btn = document.querySelector('#log_btn');   //кнопка авторизации
-var sign_btn = document.querySelector('#sign_btn');   //кнопка регистрации
-var login = document.querySelector('#loginField');    //логин
-var email = document.querySelector('#signupField');   //e-mail пользователя
-var pass = document.querySelector('#passwordSignField');    //желаемый пароль пользователя
-var password = document.querySelector('#passwordField');    //пароль для авторизации
-var loginSost = document.querySelector('#loginSost');
-var gallery = document.querySelector('#gallery');
-var token;    
+var imageLength = images.length;     //количество картинок
+var signChoice = $('#sign_choice');  //при выборе регистрации
+var signInChoice = $('#signIn_choice');  //при выборе авторизации
+var loginChoice = $('#login_choice');  //при выборе авторизации в качестве примера
+var loginView = $('#login');   //отображение меню авторизации в качестве примера
+var signupView = $('#signup');   //отображение меню регистрации
+var signInView = $('#signIn');  //Отображает меню авторизации
+var log_btn = $('#log_btn');   //кнопка авторизации в качестве примера
+var sign_btn = $('#sign_btn');   //кнопка регистрации
+var logOut_btn = $('#logOut_btn');
+var signIn_btn = $('#signIn_btn');  //кнопка авторизации
+var login = $('#loginField');    //логин
+var email = $('#signupField');   //e-mail пользователя для регистрации
+var emailIn = $('#signInField');   //e-mail пользователя для авторизации
+var pass = $('#passwordSignField');    //желаемый пароль пользователя
+var passTest = $('#passwordSignField1');
+var passIn = $('#passwordSignInField');  //пароль для авторизации
+var password = $('#passwordField');    //пароль для авторизации в качестве примера
+var loginSost = $('#loginSost');    //поле для вывода ошибки
+var gallery = $('#gallery');     //сама галерея с фотками
+var token;  //токен, который приходит от firebase
+
+
 images[q].className = "active";
 
 
@@ -66,6 +80,7 @@ log_btn.addEventListener("click", async () => {
     case "admin":
        response = await fetch(url + "admin.json",);
        commits = await response.json(); 
+
         if(password.value == 123){
           gallery.style.opacity = 1;
           loginSost.innerHTML = "";
@@ -77,7 +92,8 @@ log_btn.addEventListener("click", async () => {
     case "user":
        response = await fetch(url + "user.json");
        commits = await response.json(); 
-       if(password.value === "qwert"){
+
+       if(password.value === "qwert"){ 
         console.log("А user'ам только строка в консоль))");
         loginSost.innerHTML = "";
         loginView.style.opacity = 0;
@@ -100,9 +116,45 @@ response = await fetch(url, {
 commits = await response.json(); 
 token = commits.idToken;
 console.log(token);
-loginSost.innerHTML = token;
+  });
 
-});
+passTest.addEventListener("input", function() {
+
+  pass.value != passTest.value ? passTest.labels[0].style.color = "red" : 
+  passTest.labels[0].style.color = "black";
+
+})
+
+
+
+signIn_btn.addEventListener("click", async()=> {
+  var url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyARBkhuz8A8LZgPc2WrhMkkuZkQ-yvvqLQ';
+  var data = {"email": emailIn.value, "password": passIn.value, "returnSecureToken": true};
+  response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(data)
+  });
+  commits = await response.json();
+  console.log(commits); 
+
+  if(commits.kind == "identitytoolkit#VerifyPasswordResponse"){
+    gallery.style.opacity = 1;
+    loginSost.innerHTML = "";
+    signInView.style.opacity = 0;
+  }
+  else {
+    console.log("Пользователь не зарегистрирован...");
+    signInView.style.opacity = 0;
+    signupView.style.opacity = 1;
+    console.log("перенаправлен на регистрацию");
+  }
+  // token = commits.idToken;
+  // console.log(token);
+  
+  });
+
+
+
 
 signChoice.addEventListener('click', ()=>{
    signupView.style.opacity = 1;
@@ -114,6 +166,26 @@ loginChoice.addEventListener('click', ()=>{
   firstDiv.style.opacity = 0; 
 });
 
+signInChoice.addEventListener('click', ()=>{
+  signInView.style.opacity = 1;
+  firstDiv.style.opacity = 0; 
+});
+
+logOut_btn.addEventListener('click', logOut)
 
 //AIzaSyARBkhuz8A8LZgPc2WrhMkkuZkQ-yvvqLQ
- 
+
+function logOut() {
+token = undefined;
+commits = undefined;
+firstDiv.style.opacity = 1;
+signInView.style.opacity = 0;
+signupView.style.opacity = 0;
+loginView.style.opacity = 0;
+gallery.style.opacity = 0;
+loginSost.style.opacity = 0;
+}
+
+
+
+
