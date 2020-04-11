@@ -28,6 +28,7 @@ var loginSost = $('#loginSost');    //поле для вывода ошибки
 var gallery = $('#gallery');     //сама галерея с фотками
 var token;  //токен, который приходит от firebase
 var imgs = $('#imgs'); //id класса photos в галерее
+var backgroundDiv = $('#backgroundDiv');
 
 //настройка кнопки "посмтреть пример"
 let url = 'https://js-slider.firebaseio.com/users/';
@@ -197,20 +198,37 @@ for (var i = 0; i < buttons.length; i++) {
   
   });
 
+backgroundDiv.addEventListener("click", ()=>{
+  signInView.className = "closed-block modal";
+  loginView.className = "closed-block modal";
+  signupView.className = "closed-block modal";
+  backgroundDiv.style.opacity = 0;
+  backgroundDiv.style.zIndex = -100;
+})
+
 //Buttons in firstDiv
 signChoice.addEventListener('click', ()=>{
-   signupView.style.opacity = 1;
-   firstDiv.style.opacity = 0;
+  backgroundDiv.style.opacity = 1;
+  backgroundDiv.style.zIndex = 50;
+  signInView.className = "closed-block modal";
+  loginView.className = "closed-block modal";
+  signupView.className = "active-block modal";
 });
 
 loginChoice.addEventListener('click', ()=>{
-  loginView.style.opacity = 1;
-  firstDiv.style.opacity = 0; 
+  backgroundDiv.style.opacity = 1;
+  backgroundDiv.style.zIndex = 50;
+  signupView.className = "closed-block modal";
+  signInView.className = "closed-block modal";
+  loginView.className = "active-block modal";
 });
 
 signInChoice.addEventListener('click', ()=>{
-  signInView.style.opacity = 1;
-  firstDiv.style.opacity = 0; 
+  backgroundDiv.style.opacity = 1;
+  backgroundDiv.style.zIndex = 50;
+  loginView.className = "closed-block modal";
+  signupView.className = "closed-block modal";
+  signInView.className = "active-block modal";
 });
 
 logOut_btn.addEventListener('click', logOut)
@@ -222,11 +240,10 @@ function logOut() {
 localStorage.removeItem.token;  
 token = undefined;
 commits = undefined;
-firstDiv.style.opacity = 1;
-signInView.style.opacity = 0;
-signupView.style.opacity = 0;
-loginView.style.opacity = 0;
-gallery.style.opacity = 0;
+signupView.className = "closed-block modal";
+loginView.className = "closed-block modal";
+signInView.className = "closed-block modal";
+gallery.style.opacity = 0;                                                                                
 loginSost.style.opacity = 0;
 }
 

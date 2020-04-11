@@ -1,3 +1,8 @@
+body{
+  z-index: 1;
+  background-color: white;
+}
+
 #gallery {
   width: 900px;
   margin: 0 auto;
@@ -15,7 +20,7 @@
   position: absolute;
   left: 0;
   opacity: 0; /*неактивные фотки становятся прозрачными(исчезают) плавно за 1 секунду */
-  transition: opacity 1s;
+  transition: opacity 1s ease-out 0.5s;
 }
 
 #gallery .photos img:first-child {
@@ -26,16 +31,37 @@
   opacity: 1;   
 }
 
-#signup, #signIn, #login{
-  position: absolute;
+.modal{
+  top: -10vh;
+  position: fixed;
+  padding: 15px;
+  border: solid black 2px;
+  background-color: rgba(255,255,255,0.7);
 }
 
-
 .active-block{
-  top: 20;
-  
+  transform: translateY(40vh);
+  transition: all 1s ease-out 0.5s;  
+  z-index: 100;                                                                                                                                                                                                                                                                                 ;
 }
 
 .closed-block{
-  top: -200;
+  transform: translateY(-40vh);
+  opacity: 0;
+  z-index: 0;
 }
+
+#firstDiv{
+  height: 10vh;
+  width: 100vw;
+}
+
+#backgroundDiv{
+  z-index: -100;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(128,128,128,0.6);
+  opacity: 0;
+}
+

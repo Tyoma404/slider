@@ -7,13 +7,17 @@
 
 </head>
 <body>
+<div id="backgroundDiv"></div>
+
 <div id="firstDiv"><p>Выберите</p> 
 <input type="button" value="Зарегистрироваться" id="sign_choice">   <!-- Выбор режима регистрации нового пользователя-->
 <input type="button" value="Тестовый аккаунт" id="login_choice">   <!-- Выбор режима просмотра примера-->
 <input type="button" value="Авторизироваться" id="signIn_choice">  <!-- Выьор режима вторизации-->
 </div>
 
-<div id="signup">
+
+
+<div id="signup" class="closed-block modal">
   <p>Введите адресс эл.почты и дважды желаемый пароль</p>
   <form method="post" action="/login/">
     <table>
@@ -35,7 +39,8 @@
 <input type="button" value="Зарегистрироваться" id="sign_btn">
 </div> 
 
-<div id="signIn">
+
+<div id="signIn" class="closed-block modal">
   <p>Введите ваш логин и пароль</p>
   <form method="post" action="/login/">
     <table>
@@ -53,7 +58,7 @@
 <input type="button" value="Авторизироваться" id="signIn_btn">
 </div> 
 
-<div id="login">
+<div id="login" class="closed-block modal">
   <p>Введите тестовый логин и пароль:</p>
   <form method="post" action="/login/">
     <table>
