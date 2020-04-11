@@ -93,11 +93,11 @@ signIn_btn.addEventListener("click", async()=> {
     body: JSON.stringify(data)
   });
   commits = await response.json();
-  token = commits.idToken;
+  localStorage.token = commits.idToken;
   //console.log(commits); 
 
   var xhr = new XMLHttpRequest();
-  var url = 'https://js-slider.firebaseio.com/imgs/-M1wz-cjdTcj35bg6Qbp/images.json?auth=' + token;
+  var url = 'https://js-slider.firebaseio.com/imgs/-M1wz-cjdTcj35bg6Qbp/images.json?auth=' + localStorage.token;
   
   xhr.open('GET', url, true);
   xhr.responseType = 'json';
@@ -197,9 +197,7 @@ for (var i = 0; i < buttons.length; i++) {
   
   });
 
-
-
-
+//Buttons in firstDiv
 signChoice.addEventListener('click', ()=>{
    signupView.style.opacity = 1;
    firstDiv.style.opacity = 0;
@@ -221,6 +219,7 @@ logOut_btn.addEventListener('click', logOut)
 
 //функция выхода
 function logOut() {
+localStorage.removeItem.token;  
 token = undefined;
 commits = undefined;
 firstDiv.style.opacity = 1;

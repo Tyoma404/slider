@@ -26,14 +26,16 @@
   opacity: 1;   
 }
 
-#signup{
-  opacity: 0;
+#signup, #signIn, #login{
+  position: absolute;
 }
 
-#signIn{
-  opacity: 0;
+
+.active-block{
+  top: 20;
+  
 }
 
-#login{
-  opacity: 0;
+.closed-block{
+  top: -200;
 }
