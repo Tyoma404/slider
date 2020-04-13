@@ -59,8 +59,8 @@ body{
 #backgroundDiv{
   z-index: -100;
   position: fixed;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   background-color: rgba(128,128,128,0.6);
   opacity: 0;
 }

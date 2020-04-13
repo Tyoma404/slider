@@ -11,7 +11,6 @@
 
 <div id="firstDiv"><p>Выберите</p> 
 <input type="button" value="Зарегистрироваться" id="sign_choice">   <!-- Выбор режима регистрации нового пользователя-->
-<input type="button" value="Тестовый аккаунт" id="login_choice">   <!-- Выбор режима просмотра примера-->
 <input type="button" value="Авторизироваться" id="signIn_choice">  <!-- Выьор режима вторизации-->
 </div>
 
@@ -58,25 +57,8 @@
 <input type="button" value="Авторизироваться" id="signIn_btn">
 </div> 
 
-<div id="login" class="closed-block modal">
-  <p>Введите тестовый логин и пароль:</p>
-  <form method="post" action="/login/">
-    <table>
-        <tr>
-            <td><label for="loginField">Логин</label></td>
-            <td><input id="loginField" type="text" name="login"></td>
-        </tr>
-        <tr>
-            <td><label for="passwordField">Пароль</label></td>
-            <td><input id="passwordField" type="password" name="password"></td>
-        </tr>
-    </table>
-</form>
-<br>
-<input type="button" value="Показать пример" id="log_btn">
-<br>
 <div id="loginSost"></div>
-</div> 
+
 
 <div id="gallery">
 
@@ -112,7 +94,7 @@
 
 
 <!-- partial -->
-  <script  src="./script.js"></script>
+  <script type="module" src="./script.js"></script>
 
 </body>
 </html>
