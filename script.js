@@ -18,7 +18,7 @@ logOut_btn.addEventListener('click', logOut)
 //Ключ пользователя:    AIzaSyARBkhuz8A8LZgPc2WrhMkkuZkQ-yvvqLQ
 
 //Настройка галереи
-function galleryContent() {
+async function galleryContent() {
 
   var imgUrl = 'https://js-slider.firebaseio.com/imgs/-M1wz-cjdTcj35bg6Qbp/images.json?auth=' + localStorage.token;
   var imgResponse = await fetch(imgUrl);

@@ -11,12 +11,9 @@ var buttons = document.querySelectorAll("#gallery .buttons");   //кнопки �
 var q = 0; /* номер картинки в массиве */
 var signupView = $('#signup');   //отображение меню регистрации
 var signInView = $('#signIn');  //Отображает меню авторизации
-var sign_btn = $('#sign_btn');   //кнопка регистрации
+var formReg = $('#signup form');   //форма регистрации
 var signIn_btn = $('#signIn_btn');  //кнопка авторизации
-var email = $('#signupField');   //e-mail пользователя для регистрации
 var emailIn = $('#signInField');   //e-mail пользователя для авторизации
-var pass = $('#passwordSignField');    //желаемый пароль пользователя
-var passTest = $('#passwordSignField1');  //второй пароль пользователя (для проверки)
 var passIn = $('#passwordSignInField');  //пароль для авторизации
 var loginSost = $('#loginSost');    //поле для вывода ошибки
 var gallery = $('#gallery');     //сама галерея с фотками
@@ -36,7 +33,7 @@ signIn_btn.addEventListener("click", async()=> {
     var data = {"email": emailIn.value, "password": passIn.value, "returnSecureToken": true};
     response = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify(data)
+      body: JSON.stringify(data)   
     });
     commits = await response.json();
     localStorage.token = commits.idToken;
@@ -73,22 +70,29 @@ signInView.className = "closed-block modal";
 signupView.className = "active-block modal";
   
 //настройка кнопки регистрации
-sign_btn.addEventListener("click", async()=> {
-    var url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyARBkhuz8A8LZgPc2WrhMkkuZkQ-yvvqLQ';
-    var data = {"email": email.value, "password": pass.value, "returnSecureToken": true};
-    response = await fetch(url, {
+var data = new FormData(formReg)  
+formReg.addEventListener("submit", async(event)=> {
+  event.preventDefault();
+  var data = new FormData(formReg) 
+  console.log(JSON.stringify({"email": "sdsdf@mail.ru", "password": "sdkfhskdjfhsjk", "returnSecureToken": true}))
+  var url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyARBkhuz8A8LZgPc2WrhMkkuZkQ-yvvqLQ';
+    console.log(data)
+    let response = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify(data)
+     body: JSON.stringify({"email": data.get("email"), "password": data.get("password"), "returnSecureToken": true}) 
     });
-    commits = await response.json(); 
-    token = commits.idToken;
+    let commits = await response.json(); 
+    localStorage.token = commits.idToken;
     console.log(token);
       });
     
 //checking passwords  
+let passTest = document.querySelector('#signup form input[name="password1"]');
+let pass = document.querySelector('#signup form input[name="password"]');
+
 passTest.addEventListener("input", function() {
-      pass.value != passTest.value ? passTest.labels[0].style.color = "red" : 
-      passTest.labels[0].style.color = "black";
+      pass.value != passTest.value ? passTest.style.color = "red" : 
+      passTest.style.color = "black";
     })
 
  //background during auth
