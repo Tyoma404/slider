@@ -29,11 +29,14 @@ formLog.addEventListener("submit", async(event)=> {
     });
 
     let commits = await response.json();
-    localStorage.token = commits.idToken;
+    loginSost.innerHTML = JSON.stringify(commits); 
       
     if(commits.kind == "identitytoolkit#VerifyPasswordResponse"){
       loginSost.innerHTML = "";
       signInView.className = "closed-block modal";
+      backgroundDiv.style.opacity = 0;
+      backgroundDiv.style.zIndex = -100;
+      localStorage.token = commits.idToken;
       galleryContent();
     }
     
@@ -68,10 +71,10 @@ formReg.addEventListener("submit", async(event)=> {
   var url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyARBkhuz8A8LZgPc2WrhMkkuZkQ-yvvqLQ';
     let response = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify({"email": data.get("email"), "password": data.get("password"), "returnSecureToken": true}) 
+      body: JSON.stringify({"email": data.get("email"), "password": data.get("password"), "returnSecureToken": false}) 
     });
     let commits = await response.json(); 
-    localStorage.token = commits.idToken;
+    signupView.className = "closed-block modal";
 });
     
 //checking passwords  

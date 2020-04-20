@@ -34,21 +34,13 @@ async function galleryContent() {
 
   var imgUrl = 'https://js-slider.firebaseio.com/imgs/-M1wz-cjdTcj35bg6Qbp/images.json?auth=' + localStorage.token;
   var imgResponse = await fetch(imgUrl);
+  console.log(imgResponse)  
   var imgCommits = await imgResponse.json();
 
-
-  var xhr = new XMLHttpRequest();
   
-  xhr.open('GET', url, true);
-  xhr.responseType = 'json';
-  xhr.addEventListener("readystatechange", () => {
+console.log(imgCommits)
 
-// если состояния запроса 4 и статус запроса 200 (OK)
-if ((xhr.readyState==4) && (xhr.status==200)) {
-  // например, выведем объект XHR в консоль браузера
-    console.log(xhr.response[0]);
-
-for (var i=0; i<xhr.response.length; i++){
+for (var i=0; i<imgCommits.length; i++){
   let img = document.createElement('img');
   img.className = "images";
   img.src = imgCommits[i]
@@ -104,8 +96,7 @@ for (var i = 0; i < buttons.length; i++) {
 
 
 
-}
-})
+
 
 
 
