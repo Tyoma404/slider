@@ -4,11 +4,22 @@ function $(selector) {
  return document.querySelector(selector)
 }
 
-var signUpChoice = $('#sign_choice');  //при выборе регистрации
-var signInChoice = $('#signIn_choice');  //при выборе авторизации
-var logOut_btn = $('#logOut_btn');  //кнопка выхода
-
 //Buttons in firstDiv
+var signUpChoice = $('#sign_choice');  
+var signInChoice = $('#signIn_choice');  
+var logOut_btn = $('#logOut_btn');  
+
+//Gallery's variables
+var gallery = $('#gallery');     //сама галерея с фотками
+var btn_prev = $('#gallery .buttonsForSlider .prev');  /* отбирает всегда самый первый элемент, удовлетворяющий css-селектору */
+var btn_next = $('#gallery .buttonsForSlider .next');
+var firstPicture = $("#gallery .photos img:first-child");
+var buttons = document.querySelectorAll("#gallery .buttons");   //кнопки для галереи
+var q = 0; /* номер картинки в массиве */
+var imgs = $('#imgs'); //id класса photos в галерее
+
+
+//Buttons in firstDiv setups
 signUpChoice.addEventListener('click', signUP);
 
 signInChoice.addEventListener('click', logIN);
@@ -17,8 +28,9 @@ logOut_btn.addEventListener('click', logOut)
 
 //Ключ пользователя:    AIzaSyARBkhuz8A8LZgPc2WrhMkkuZkQ-yvvqLQ
 
-//Настройка галереи
+//Gallery setups
 async function galleryContent() {
+  gallery.style.opacity = 1;
 
   var imgUrl = 'https://js-slider.firebaseio.com/imgs/-M1wz-cjdTcj35bg6Qbp/images.json?auth=' + localStorage.token;
   var imgResponse = await fetch(imgUrl);

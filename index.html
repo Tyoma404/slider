@@ -4,88 +4,80 @@
   <meta charset="UTF-8">
   <title>Cool JS-slider with auth</title>
   <link rel="stylesheet" href="./style.css">
-
 </head>
 <body>
+<!--Background div during modal window's working-->
 <div id="backgroundDiv"></div>
 
+<!--The first version of navigation-->
 <div id="firstDiv"><p>Выберите</p> 
 <input type="button" value="Зарегистрироваться" id="sign_choice">   <!-- Выбор режима регистрации нового пользователя-->
 <input type="button" value="Авторизироваться" id="signIn_choice">  <!-- Выьор режима вторизации-->
 </div>
 
-
-
-<div id="signup" class="closed-block modal">
+<!--Modal window for signUp-->
+<div id="signUp" class="closed-block modal">
   <p>Введите адресс эл.почты и дважды желаемый пароль</p>
-  <form>
+    <form>
       <label>Электронная почта</label>
       <input type="text" name="email">
 
       <label>Пароль</label>
       <input type="password" name="password">
       
-    <label >Повтор пароля</label>
-    <input type="password" name="password1">
-    <input type="submit"  value="Зарегистрироваться">
-</form>
+      <label >Повтор пароля</label>
+      <input type="password" name="password1">
 
+      <input type="submit"  value="Зарегистрироваться">
+    </form>
 </div> 
 
-
+<!--Modal window for logIn-->
 <div id="signIn" class="closed-block modal">
   <p>Введите ваш логин и пароль</p>
-  <form method="post" action="/login/">
-    <table>
-        <tr>
-            <td><label for="signInField">Логин</label></td>
-            <td><input id="signInField" type="text" name="signIn"></td>
-        </tr>
-        <tr>
-            <td><label for="passwordSignInField">Пароль</label></td>
-            <td><input id="passwordSignInField" type="password" name="passwordSignIn"></td>
-        </tr>
-    </table>
-</form>
-<br>
-<input type="button" value="Авторизироваться" id="signIn_btn">
-</div> 
+    <form>
+      <label>Логин</label>
+      <input type="text" name="login">
 
+      <label>Пароль</label>
+      <input type="password" name="password">
+
+      <input type="submit" value="Авторизироваться">
+    </form>
+</div> 
 <div id="loginSost"></div>
 
-
+<!--Gallery-->
 <div id="gallery">
-
-<div class="photos" id="imgs">
+  <div class="photos" id="imgs">
   <!-- <img src="https://thumbs2.tunefiles.com/98,0317957af6b7dc3d.jpg">
-  <img src="https://pp.userapi.com/c849320/v849320768/fca10/_cwMBfrz8Xg.jpg">
-  <img src="https://bipbap.ru/wp-content/uploads/2017/12/0f92147ad2284aae418b40faf24dc68902960019_hq-640x456.jpg">
-  <img src="https://st2.depositphotos.com/4256003/9442/i/950/depositphotos_94426252-stock-photo-gentle-portrait-tiger-computer-collage.jpg">
-  <img src="https://i.ytimg.com/vi/Z_zd0sinCw8/maxresdefault.jpg">
-  <img src="http://2.bp.blogspot.com/-mvoZS1oSdK8/TktsiBc4voI/AAAAAAAACLQ/MKaAYSFJvlo/s00/romashki.jpg"> 
-  <img src="https://png.pngtree.com/thumb_back/fw800/background/20190221/ourmid/pngtree-tech-cool-particle-background-creative-business-big-data-image_17381.jpg">   
-  <img src="https://cs8.pikabu.ru/post_img/big/2016/01/24/2/1453596314192534494.jpg"> 
-  <img src="https://pp.userapi.com/c851324/v851324996/84158/6_4hzSOCuiI.jpg">
-  <img src="https://cdn-s3.si.com/s3fs-public/images/1988-mike-tyson-NLC_05245.jpg">  -->
-</div>
+    <img src="https://pp.userapi.com/c849320/v849320768/fca10/_cwMBfrz8Xg.jpg">
+    <img src="https://bipbap.ru/wp-content/uploads/2017/12/0f92147ad2284aae418b40faf24dc68902960019_hq-640x456.jpg">
+    <img src="https://st2.depositphotos.com/4256003/9442/i/950/depositphotos_94426252-stock-photo-gentle-portrait-tiger-computer-collage.jpg">
+    <img src="https://i.ytimg.com/vi/Z_zd0sinCw8/maxresdefault.jpg">
+    <img src="http://2.bp.blogspot.com/-mvoZS1oSdK8/TktsiBc4voI/AAAAAAAACLQ/MKaAYSFJvlo/s00/romashki.jpg"> 
+    <img src="https://png.pngtree.com/thumb_back/fw800/background/20190221/ourmid/pngtree-tech-cool-particle-background-creative-business-big-data-image_17381.jpg">   
+    <img src="https://cs8.pikabu.ru/post_img/big/2016/01/24/2/1453596314192534494.jpg"> 
+    <img src="https://pp.userapi.com/c851324/v851324996/84158/6_4hzSOCuiI.jpg">
+    <img src="https://cdn-s3.si.com/s3fs-public/images/1988-mike-tyson-NLC_05245.jpg">  -->
+  </div>
 
-<div class="buttonsForSlider">
-     <input type="button" value="Назад" class="prev">
-     <input type="button" data-name="0" value="рис 1" class="buttons">
-     <input type="button" data-name="1" value="рис 2" class="buttons">
-     <input type="button" data-name="2" value="рис 3" class="buttons">
-     <input type="button" data-name="3" value="рис 4" class="buttons">             
-     <input type="button" data-name="4" value="рис 5" class="buttons">
-     <input type="button" data-name="5" value="рис 6" class="buttons">
-     <input type="button" data-name="6" value="рис 7" class="buttons">
-     <input type="button" data-name="7" value="рис 8" class="buttons">
-     <input type="button" data-name="8" value="рис 9" class="buttons">
-     <input type="button" data-name="9" value="рис 10" class="buttons">
-     <input type="button" value="Вперед" class="next">
+  <div class="buttonsForSlider">
+    <input type="button" value="Назад" class="prev">
+    <input type="button" data-name="0" value="рис 1" class="buttons">
+    <input type="button" data-name="1" value="рис 2" class="buttons">
+    <input type="button" data-name="2" value="рис 3" class="buttons">
+    <input type="button" data-name="3" value="рис 4" class="buttons">             
+    <input type="button" data-name="4" value="рис 5" class="buttons">
+    <input type="button" data-name="5" value="рис 6" class="buttons">
+    <input type="button" data-name="6" value="рис 7" class="buttons">
+    <input type="button" data-name="7" value="рис 8" class="buttons">
+    <input type="button" data-name="8" value="рис 9" class="buttons">
+    <input type="button" data-name="9" value="рис 10" class="buttons">
+    <input type="button" value="Вперед" class="next">
+  </div>
+  <button id="logOut_btn">Выход</button>
 </div>
-<button id="logOut_btn">Выход</button>
-</div>
-
 
 <!-- partial -->
   <script type="module" src="./script.js"></script>

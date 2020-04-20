@@ -4,21 +4,12 @@ function $(selector) {
  return document.querySelector(selector);
 }
 
-var btn_prev = $('#gallery .buttonsForSlider .prev');  /* отбирает всегда самый первый элемент, удовлетворяющий css-селектору */
-var btn_next = $('#gallery .buttonsForSlider .next');
-var firstPicture = $("#gallery .photos img:first-child");
-var buttons = document.querySelectorAll("#gallery .buttons");   //кнопки для галереи
-var q = 0; /* номер картинки в массиве */
-var signupView = $('#signup');   //отображение меню регистрации
+var signupView = $('#signUp');   //отображение меню регистрации
 var signInView = $('#signIn');  //Отображает меню авторизации
-var formReg = $('#signup form');   //форма регистрации
-var signIn_btn = $('#signIn_btn');  //кнопка авторизации
-var emailIn = $('#signInField');   //e-mail пользователя для авторизации
-var passIn = $('#passwordSignInField');  //пароль для авторизации
+var formReg = $('#signUp form');   //форма регистрации
+var formLog = $('#signIn form');   //форма авторизации
 var loginSost = $('#loginSost');    //поле для вывода ошибки
-var gallery = $('#gallery');     //сама галерея с фотками
 var token;  //токен, который приходит от firebase
-var imgs = $('#imgs'); //id класса photos в галерее
 var backgroundDiv = $('#backgroundDiv');
 
 function logIN(){
@@ -28,18 +19,19 @@ signupView.className = "closed-block modal";
 signInView.className = "active-block modal";
 
 //настройка кнопки авторизации
-signIn_btn.addEventListener("click", async()=> {
+formLog.addEventListener("submit", async(event)=> {
+    event.preventDefault();
+    let data = new FormData(formLog) 
     var url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyARBkhuz8A8LZgPc2WrhMkkuZkQ-yvvqLQ'
-    var data = {"email": emailIn.value, "password": passIn.value, "returnSecureToken": true};
-    response = await fetch(url, {
+    let response = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify(data)   
+      body: JSON.stringify({"email": data.get("email"), "password": data.get("password"), "returnSecureToken": true})   
     });
-    commits = await response.json();
+
+    let commits = await response.json();
     localStorage.token = commits.idToken;
       
     if(commits.kind == "identitytoolkit#VerifyPasswordResponse"){
-      gallery.style.opacity = 1;
       loginSost.innerHTML = "";
       signInView.className = "closed-block modal";
       galleryContent();
@@ -69,34 +61,30 @@ backgroundDiv.style.zIndex = 50;
 signInView.className = "closed-block modal";
 signupView.className = "active-block modal";
   
-//настройка кнопки регистрации
-var data = new FormData(formReg)  
+//настройка кнопки регистрации 
 formReg.addEventListener("submit", async(event)=> {
   event.preventDefault();
-  var data = new FormData(formReg) 
-  console.log(JSON.stringify({"email": "sdsdf@mail.ru", "password": "sdkfhskdjfhsjk", "returnSecureToken": true}))
+  let data = new FormData(formReg); 
   var url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyARBkhuz8A8LZgPc2WrhMkkuZkQ-yvvqLQ';
-    console.log(data)
     let response = await fetch(url, {
       method: 'POST',
-     body: JSON.stringify({"email": data.get("email"), "password": data.get("password"), "returnSecureToken": true}) 
+      body: JSON.stringify({"email": data.get("email"), "password": data.get("password"), "returnSecureToken": true}) 
     });
     let commits = await response.json(); 
     localStorage.token = commits.idToken;
-    console.log(token);
-      });
+});
     
 //checking passwords  
-let passTest = document.querySelector('#signup form input[name="password1"]');
-let pass = document.querySelector('#signup form input[name="password"]');
+let passTest = document.querySelector('#signUp form input[name="password1"]');
+let pass = document.querySelector('#signUp form input[name="password"]');
 
-passTest.addEventListener("input", function() {
+  passTest.addEventListener("input", function() {
       pass.value != passTest.value ? passTest.style.color = "red" : 
       passTest.style.color = "black";
-    })
+  })
 
  //background during auth
-backgroundDiv.addEventListener("click", ()=>{
+  backgroundDiv.addEventListener("click", ()=>{
     signInView.className = "closed-block modal";
     signupView.className = "closed-block modal";
     backgroundDiv.style.opacity = 0;
@@ -109,8 +97,7 @@ localStorage.removeItem.token;
 token = undefined;
 commits = undefined;
 signupView.className = "closed-block modal";
-signInView.className = "closed-block modal";
-gallery.style.opacity = 0;                                                                                
+signInView.className = "closed-block modal";                                                                               
 loginSost.style.opacity = 0;
 }
 
