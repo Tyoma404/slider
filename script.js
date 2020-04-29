@@ -37,9 +37,6 @@ async function galleryContent() {
   console.log(imgResponse)  
   var imgCommits = await imgResponse.json();
 
-  
-console.log(imgCommits)
-
 for (var i=0; i<imgCommits.length; i++){
   let img = document.createElement('img');
   img.className = "images";
@@ -47,9 +44,6 @@ for (var i=0; i<imgCommits.length; i++){
   imgs.appendChild(img);
 
 }
-
-
-
 
 var images = document.querySelectorAll('#gallery .photos img'); /*отбирает все картинки в массив images */
 images[q].className = "active";
