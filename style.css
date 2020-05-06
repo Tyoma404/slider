@@ -1,6 +1,7 @@
 body{
   z-index: 1;
   background-color: white;
+  margin: 0;
 }
 
 #gallery {

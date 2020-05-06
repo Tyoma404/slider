@@ -10,14 +10,14 @@ var signInChoice = $('#signIn_choice');
 var logOut_btn = $('#logOut_btn');  
 
 //Gallery's variables
-var gallery = $('#gallery');     //сама галерея с фотками
-var btn_prev = $('#gallery .buttonsForSlider .prev');  /* отбирает всегда самый первый элемент, удовлетворяющий css-селектору */
+var gallery = $('#gallery');     
+var btn_prev = $('#gallery .buttonsForSlider .prev'); 
 var btn_next = $('#gallery .buttonsForSlider .next');
 var firstPicture = $("#gallery .photos img:first-child");
-var buttons = document.querySelectorAll("#gallery .buttons");   //кнопки для галереи
+// var buttons = document.querySelectorAll("#gallery .buttons");   //кнопки для галереи
 var q = 0; /* номер картинки в массиве */
 var imgs = $('#imgs'); //id класса photos в галерее
-
+var btns = $('#btns');
 
 //Buttons in firstDiv setups
 signUpChoice.addEventListener('click', signUP);
@@ -37,17 +37,62 @@ async function galleryContent() {
   console.log(imgResponse)  
   var imgCommits = await imgResponse.json();
 
-for (var i=0; i<imgCommits.length; i++){
-  let img = document.createElement('img');
-  img.className = "images";
-  img.src = imgCommits[i]
-  imgs.appendChild(img);
+  imgCommits = imgCommits.map((value,index) => {
+    let img = document.createElement('img')
+        img.src = value 
+    img.className = "images"
+    return img
+  })
+  
+  imgCommits.map( value => {
+    imgs.appendChild(value)
+      return value
+    }
+  )
 
-}
+  const btnsElements = imgCommits.map((value,index) => {
+    let btn = document.createElement('button')
+    btn.textContent = "Number " + index
+    btn.className = "buttons"
+    btn.dataName = index
+    return btn
+  }
+  )
 
-var images = document.querySelectorAll('#gallery .photos img'); /*отбирает все картинки в массив images */
-images[q].className = "active";
-var imageLength = images.length;
+  btnsElements.map( (value, index) => {
+    btns.appendChild(value)
+/// !!! сюда обработчики 
+    return value
+  }
+  )
+
+  var buttons = document.querySelectorAll("#gallery .buttons")
+  var images = document.querySelectorAll('#gallery .photos img'); /*отбирает все картинки в массив images */
+  images[q].className = "active";
+  var imageLength = images.length;
+
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", function (event) {
+      images[q].className = '';
+      // if (event.target.value != 0){
+      //   firstPicture.className = '';}
+      // if (event.target.value == 0)
+      // {firstPicture.className = 'active'; }
+      images[event.target.dataset.name].className = 'active';
+      q = parseInt(event.target.dataset.name)
+    })
+    buttons[i].addEventListener("mouseenter", function () {
+      console.log("Курсор наведён на " + event.target.dataset.name + " картинку");
+    })
+  }
+
+// for (var i=0; i<imgCommits.length; i++){
+//   let img = document.createElement('img');
+//   img.className = "images";
+//   img.src = imgCommits[i]
+//   imgs.appendChild(img);}
+
+
 
 btn_prev.addEventListener("click", function () {
   images[q].className = ''; /*текущая фотка получает класс неактивной*/
@@ -72,28 +117,8 @@ btn_next.addEventListener("click", function () {
   images[q].className = 'active';
 })
 
-for (var i = 0; i < buttons.length; i++) {
-  buttons[i].addEventListener("click", function (event) {
-    images[q].className = '';
-    // if (event.target.value != 0){
-    //   firstPicture.className = '';}
-    // if (event.target.value == 0)
-    // {firstPicture.className = 'active'; }
-    images[event.target.dataset.name].className = 'active';
-    q = parseInt(event.target.dataset.name)
-  })
-  buttons[i].addEventListener("mouseenter", function () {
-    console.log("Курсор наведён на " + event.target.dataset.name + " картинку");
-  })
-}
-
-
-
-
-
-
-
 
 }
+
 
 export {galleryContent}
