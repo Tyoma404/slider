@@ -15,7 +15,7 @@ var backgroundDiv = $('#backgroundDiv');
 function logIN(){
 backgroundDiv.style.opacity = 1;
 backgroundDiv.style.zIndex = 50;
-signupView.className = "closed-block modal";
+signupView.className = "modal";
 signInView.className = "active-block modal";
 
 //настройка кнопки авторизации
@@ -37,7 +37,7 @@ formLog.addEventListener("submit", async(event)=> {
 
     if(commits.kind == "identitytoolkit#VerifyPasswordResponse"){
       loginSost.innerHTML = "";
-      signInView.className = "closed-block modal";
+      signInView.className = "modal";
       backgroundDiv.style.opacity = 0;
       backgroundDiv.style.zIndex = -100;
       localStorage.token = commits.idToken;
@@ -48,7 +48,7 @@ formLog.addEventListener("submit", async(event)=> {
       console.log("Пользователь не зарегистрирован...");
       password = undefined;
       login = undefined;
-      signInView.className = "closed-block modal";
+      signInView.className = "modal";
       signupView.className = "active-block modal";
       console.log("перенаправлен на регистрацию");
     }
@@ -63,8 +63,8 @@ catch(e){
 
 //background during auth
 backgroundDiv.addEventListener("click", ()=>{
-    signInView.className = "closed-block modal";
-    signupView.className = "closed-block modal";
+    signInView.className = "modal";
+    signupView.className = "modal";
     backgroundDiv.style.opacity = 0;
     backgroundDiv.style.zIndex = -100;
   })    
@@ -73,7 +73,7 @@ backgroundDiv.addEventListener("click", ()=>{
 function signUP() {
 backgroundDiv.style.opacity = 1;
 backgroundDiv.style.zIndex = 50;
-signInView.className = "closed-block modal";
+signInView.className = "modal";
 signupView.className = "active-block modal";
 let passTest = $('#signUp form input[name="password1"]');
 let pass = $('#signUp form input[name="password"]');
@@ -103,7 +103,7 @@ if (email){
       body: JSON.stringify({"email": email, "password": password, "returnSecureToken": false}) 
      });
      let commits = await response.json(); 
-     signupView.className = "closed-block modal";}
+     signupView.className = "modal";}
     else throw new Error ("passwords are diffrent");
   }
    else throw new Error ("password is too short");
@@ -120,8 +120,8 @@ catch(e){
     
  //background during auth
   backgroundDiv.addEventListener("click", ()=>{
-    signInView.className = "closed-block modal";
-    signupView.className = "closed-block modal";
+    signInView.className = "modal";
+    signupView.className = "modal";
     backgroundDiv.style.opacity = 0;
     backgroundDiv.style.zIndex = -100;
   }) 
@@ -131,17 +131,10 @@ catch(e){
 function logOut() {
 localStorage.removeItem.token;  
 token = undefined;
-signupView.className = "closed-block modal";
-signInView.className = "closed-block modal";                                                                               
+signupView.className = "modal";
+signInView.className = "modal";                                                                               
 loginSost.style.opacity = 0;
-let photos = document.querySelector(".photos");
-let gallery = $("#gallery");
-
-while (photos.firstChild) {
-  photos.removeChild(photos.firstChild);
-}
-
-gallery.style.opacity = 0;
+$('.container').innerHTML = '';
 }
 
 export {logIN, signUP, logOut}

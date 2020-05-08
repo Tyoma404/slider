@@ -8,7 +8,6 @@ body{
   width: 900px;
   margin: 0 auto;
   text-align: center;
-  opacity: 0;
   }
 
 #gallery .photos {
@@ -24,16 +23,14 @@ body{
   transition: opacity 1s ease-out 0.5s;
 }
 
-#gallery .photos img:first-child {
-  opacity: 0;   
-}
-
 #gallery .photos img.active {
   opacity: 1;   
 }
 
 .modal{
-  top: -10vh;
+  top: -40vh;
+  opacity: 0;
+  z-index: 0;
   position: fixed;
   padding: 15px;
   border: solid black 2px;
@@ -41,15 +38,10 @@ body{
 }
 
 .active-block{
+  opacity: 1;
+  z-index: 100; 
   transform: translateY(40vh);
-  transition: all 1s ease-out 0.5s;  
-  z-index: 100;                                                                                                                                                                                                                                                                                 ;
-}
-
-.closed-block{
-  transform: translateY(-40vh);
-  opacity: 0;
-  z-index: 0;
+  transition: all 1s ease-out 0.5s;                                                                                                                                                                                                                                                                                 ;
 }
 
 #firstDiv{

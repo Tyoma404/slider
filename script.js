@@ -4,115 +4,94 @@ function $(selector) {
  return document.querySelector(selector)
 }
 
+//Main container
+const container = $('.container') 
+
 //Buttons in firstDiv
 var signUpChoice = $('#sign_choice');  
-var signInChoice = $('#signIn_choice');  
-var logOut_btn = $('#logOut_btn');  
+var signInChoice = $('#signIn_choice');   
 
-//Gallery's variables
-var gallery = $('#gallery');     
-var btn_prev = $('#gallery .buttonsForSlider .prev'); 
-var btn_next = $('#gallery .buttonsForSlider .next');
-var firstPicture = $("#gallery .photos img:first-child");
-// var buttons = document.querySelectorAll("#gallery .buttons");   //кнопки для галереи
-var q = 0; /* номер картинки в массиве */
-var imgs = $('#imgs'); //id класса photos в галерее
-var btns = $('#btns');
 
 //Buttons in firstDiv setups
 signUpChoice.addEventListener('click', signUP);
 
 signInChoice.addEventListener('click', logIN);
 
-logOut_btn.addEventListener('click', logOut)
 
 //Ключ пользователя:    AIzaSyARBkhuz8A8LZgPc2WrhMkkuZkQ-yvvqLQ
 
 //Gallery setups
 async function galleryContent() {
-  gallery.style.opacity = 1;
-
+  
   var imgUrl = 'https://js-slider.firebaseio.com/imgs/-M1wz-cjdTcj35bg6Qbp/images.json?auth=' + localStorage.token;
   var imgResponse = await fetch(imgUrl);
   console.log(imgResponse)  
   var imgCommits = await imgResponse.json();
 
-  imgCommits = imgCommits.map((value,index) => {
-    let img = document.createElement('img')
-        img.src = value 
-    img.className = "images"
-    return img
-  })
+  imgCommits = imgCommits.map((value) => `<img src=${value} class="images"/>`)
   
-  imgCommits.map( value => {
-    imgs.appendChild(value)
-      return value
-    }
-  )
+  const btnsElements = imgCommits.map((value,index) => `<button class="buttons">рис ${index}</button>`)
 
-  const btnsElements = imgCommits.map((value,index) => {
-    let btn = document.createElement('button')
-    btn.textContent = "Number " + index
-    btn.className = "buttons"
-    btn.dataName = index
-    return btn
-  }
-  )
+  container.innerHTML = `<div id="gallery"> 
+  <div class="photos" id="imgs">${imgCommits.join()}</div> 
 
-  btnsElements.map( (value, index) => {
-    btns.appendChild(value)
-/// !!! сюда обработчики 
-    return value
-  }
-  )
+  <div class="buttonsForSlider">
+    <input type="button" value="Назад" class="prev">
+    <div id="btns">${btnsElements.join()}</div>
+    <input type="button" value="Вперед" class="next">
+  </div>
+  <button id="logOut_btn">Выход</button>
+</div>`
 
-  var buttons = document.querySelectorAll("#gallery .buttons")
-  var images = document.querySelectorAll('#gallery .photos img'); /*отбирает все картинки в массив images */
+//Gallery's variables
+  const btn_prev = $('#gallery .buttonsForSlider .prev'); 
+  const btn_next = $('#gallery .buttonsForSlider .next');
+  let q = 0; //picture counter
+  const buttons = document.querySelectorAll("#gallery .buttons")
+  const images = document.querySelectorAll('#gallery .photos img'); 
   images[q].className = "active";
-  var imageLength = images.length;
+  let imageLength = images.length;
+  const logOut_btn = $('#logOut_btn'); 
 
-  for (var i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener("click", function (event) {
-      images[q].className = '';
-      // if (event.target.value != 0){
-      //   firstPicture.className = '';}
-      // if (event.target.value == 0)
-      // {firstPicture.className = 'active'; }
-      images[event.target.dataset.name].className = 'active';
-      q = parseInt(event.target.dataset.name)
-    })
-    buttons[i].addEventListener("mouseenter", function () {
-      console.log("Курсор наведён на " + event.target.dataset.name + " картинку");
-    })
-  }
+buttons.forEach( (el, index) => {
+  el.addEventListener("click", ()=>{
+  images[q].className = ""  
+  images[index].className = "active"
+  q = index
+  })
+})
 
-// for (var i=0; i<imgCommits.length; i++){
-//   let img = document.createElement('img');
-//   img.className = "images";
-//   img.src = imgCommits[i]
-//   imgs.appendChild(img);}
+  // for (var i = 0; i < buttons.length; i++) {
+  //   buttons[i].addEventListener("click", function (event) {
+  //     images[q].className = '';
+  //     // if (event.target.value != 0){
+  //     //   firstPicture.className = '';}
+  //     // if (event.target.value == 0)
+  //     // {firstPicture.className = 'active'; }
+  //     images[event.target.dataset.name].className = 'active';
+  //     q = parseInt(event.target.dataset.name)
+  //   })
+  //   buttons[i].addEventListener("mouseenter", function () {
+  //     console.log("Курсор наведён на " + event.target.dataset.name + " картинку");
+  //   })
+  // }
 
-
+logOut_btn.addEventListener('click', logOut)
 
 btn_prev.addEventListener("click", function () {
-  images[q].className = ''; /*текущая фотка получает класс неактивной*/
+  images[q].className = ''; 
   q = q - 1; /* или i-- */
-  // if (q != 0){firstPicture.className = '';}
-  // if (q == 0){firstPicture.className = 'active';}
   if (q < 0) {
-    q = imageLength - 1;  /* отмотал в начало? продолжает с конца. '-1' чтобы учитывать нулевой элемент массива*/
+    q = imageLength - 1;  
   }
-  images[q].className = 'active'; /*то фото, к которому переходим получает класс активного */
+  images[q].className = 'active';
 })
 
 btn_next.addEventListener("click", function () {
   images[q].className = '';
-  q = q + 1; /* или i++ */
-  // if (q != 0){firstPicture.className = '';}
-  // if (q == 0){firstPicture.className = 'active';}
+  q = q + 1; 
   if (q >= imageLength) {
-    q = 0; /* кончились картинки ? продолжает с первой */
-    // firstPicture.className = 'active';
+    q = 0; 
   }
   images[q].className = 'active';
 })
