@@ -22,7 +22,7 @@ signInChoice.addEventListener('click', logIN);
 
 //Gallery setups
 async function galleryContent() {
-  
+  container.innerHTML = "<div class='Spinner'></div>";
   var imgUrl = 'https://js-slider.firebaseio.com/imgs/-M1wz-cjdTcj35bg6Qbp/images.json?auth=' + localStorage.token;
   var imgResponse = await fetch(imgUrl);
   console.log(imgResponse)  
@@ -33,11 +33,11 @@ async function galleryContent() {
   const btnsElements = imgCommits.map((value,index) => `<button class="buttons">рис ${index}</button>`)
 
   container.innerHTML = `<div id="gallery"> 
-  <div class="photos" id="imgs">${imgCommits.join()}</div> 
+  <div class="photos" id="imgs">${imgCommits.join('')}</div> 
 
   <div class="buttonsForSlider">
     <input type="button" value="Назад" class="prev">
-    <div id="btns">${btnsElements.join()}</div>
+    <div id="btns">${btnsElements.join('')}</div>
     <input type="button" value="Вперед" class="next">
   </div>
   <button id="logOut_btn">Выход</button>
