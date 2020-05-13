@@ -44,56 +44,39 @@ async function galleryContent() {
 </div>`
 
 //Gallery's variables
+  let q = 0   //pictures counter
   const btn_prev = $('#gallery .buttonsForSlider .prev'); 
   const btn_next = $('#gallery .buttonsForSlider .next');
-  let q = 0; //picture counter
-  const buttons = document.querySelectorAll("#gallery .buttons")
-  const images = document.querySelectorAll('#gallery .photos img'); 
-  images[q].className = "active";
+  const buttons = document.querySelectorAll("#gallery .buttons")    //buttons array
+  const images = document.querySelectorAll('#gallery .photos img');     //images array
   let imageLength = images.length;
   const logOut_btn = $('#logOut_btn'); 
 
+  activateImage(q) 
+
+  function activateImage(index) {
+  images.forEach( (el,i) => {
+    el.classList.toggle("active", i === index)
+    q = index
+  }) 
+  }
+
 buttons.forEach( (el, index) => {
-  el.addEventListener("click", ()=>{
-  images[q].className = ""  
-  images[index].className = "active"
-  q = index
+  el.addEventListener("click", ()=>{  
+  activateImage(index)
   })
 })
-
-  // for (var i = 0; i < buttons.length; i++) {
-  //   buttons[i].addEventListener("click", function (event) {
-  //     images[q].className = '';
-  //     // if (event.target.value != 0){
-  //     //   firstPicture.className = '';}
-  //     // if (event.target.value == 0)
-  //     // {firstPicture.className = 'active'; }
-  //     images[event.target.dataset.name].className = 'active';
-  //     q = parseInt(event.target.dataset.name)
-  //   })
-  //   buttons[i].addEventListener("mouseenter", function () {
-  //     console.log("Курсор наведён на " + event.target.dataset.name + " картинку");
-  //   })
-  // }
 
 logOut_btn.addEventListener('click', logOut)
 
 btn_prev.addEventListener("click", function () {
-  images[q].className = ''; 
-  q = q - 1; /* или i-- */
-  if (q < 0) {
-    q = imageLength - 1;  
-  }
-  images[q].className = 'active';
+  q == 0 ? q = imageLength-1 : q = q - 1
+  activateImage(q)   
 })
 
 btn_next.addEventListener("click", function () {
-  images[q].className = '';
-  q = q + 1; 
-  if (q >= imageLength) {
-    q = 0; 
-  }
-  images[q].className = 'active';
+  q == imageLength-1 ? q = 0 : q = q + 1
+  activateImage(q)
 })
 
 

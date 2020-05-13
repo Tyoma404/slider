@@ -21,7 +21,7 @@ body{
   position: absolute;
   top: 0;
   left: 30%;
-  opacity: 0; /*неактивные фотки становятся прозрачными(исчезают) плавно за 1 секунду */
+  opacity: 0;
   transition: opacity 1s ease-out 0.5s;
 }
 
@@ -42,7 +42,7 @@ body{
 .active-block{
   opacity: 1;
   z-index: 100; 
-  transform: translateY(40vh);
+  transform: translateY(70vh);
   transition: all 1s ease-out 0.5s;                                                                                                                                                                                                                                                                                 ;
 }
 
@@ -60,12 +60,10 @@ body{
   opacity: 0;
 }
 
-
-
+/*Spinner setup*/
 .Spinner {
   margin: 150px auto;
   border-radius: 50%;
-  box-shadow: inset 0 0 6px 10px;
   position: relative;
   width: 10em;
   height: 10em;
